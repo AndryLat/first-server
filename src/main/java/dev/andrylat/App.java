@@ -19,13 +19,17 @@ import java.util.concurrent.atomic.AtomicLong;
 public class App {
     private static Logger LOGGER = LogManager.getLogger(App.class);
 
+    private static final int PORT = System.getenv("PORT") != null
+            ? Integer.parseInt(System.getenv("PORT"))
+            : 8765;
+
     public static void main(String[] args) {
         LOGGER.info("Server is starting...");
 
         HttpServer server;
         try {
             server = HttpServer.create();
-            server.bind(new InetSocketAddress(8765), 0);
+            server.bind(new InetSocketAddress(PORT), 0);
         } catch (IOException ex) {
             LOGGER.error("Server can't start! Reason: {}", ex.getMessage(), ex);
             return;
